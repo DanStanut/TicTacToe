@@ -102,7 +102,7 @@ function checkGame(event) {
     let rect = gameCanvas.getBoundingClientRect();
     let mx = Math.floor((event.clientX - rect.left) / 100);
     let my = Math.floor((event.clientY - rect.top) / 100);
-    if (boardState[mx][my] === "" && !checkWinner()) {
+    if (boardState[mx][my] == "" && !checkWinner()) {
         boardState[mx][my] = player[playerTurn];
     }
     if (checkWinner()) {
