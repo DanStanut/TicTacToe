@@ -43,40 +43,26 @@ function drawBoard() {
     }
 }
 
-function checkCol() {
+function checkRowCol() {
     for (let i = 0; i < 3; ++i) {
-        if (boardState[i][0] === boardState[i][1] && boardState[i][1] === boardState[i][2] && boardState[i][0] != "") {
+        if ((boardState[i][0] === boardState[i][1] && boardState[i][1] === boardState[i][2] && boardState[i][0] != "") ||
+            (boardState[0][i] === boardState[1][i] && boardState[1][i] === boardState[2][i] && boardState[0][i] != "")) {
             return true;
         }
     }
     return false;
 }
 
-function checkRow() {
-    for (let i = 0; i < 3; ++i) {
-        if (boardState[0][i] === boardState[1][i] && boardState[1][i] === boardState[2][i] && boardState[0][i] != "") {
-            return true;
-        }
-    }
-    return false;
-}
-
-function checkFD() {
-    if (boardState[0][0] === boardState[1][1] && boardState[1][1] === boardState[2][2] && boardState[0][0] != "") {
-        return true;
-    }
-    return false;
-}
-
-function checkSD() {
-    if (boardState[0][2] === boardState[1][1] && boardState[1][1] === boardState[2][0] && boardState[2][0] != "") {
+function checkDiag() {
+    if ((boardState[0][0] === boardState[1][1] && boardState[1][1] === boardState[2][2] && boardState[0][0] != "") ||
+        (boardState[0][2] === boardState[1][1] && boardState[1][1] === boardState[2][0] && boardState[2][0] != "")) {
         return true;
     }
     return false;
 }
 
 function checkWinner() {
-    return checkCol() || checkRow() || checkFD() || checkSD();
+    return checkRowCol() || checkDiag();
 }
 
 function resetBoard() {
