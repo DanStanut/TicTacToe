@@ -4,6 +4,9 @@ const displayedText = document.getElementById("displayedText");
 const figureSize = 20;
 
 let boardState = [["", "", ""], ["", "", ""], ["", "", ""]];
+let winningStates = [[[0, 0], [0, 1], [0, 2]], [[1, 0], [1, 1], [1, 2]], [[2, 0], [2, 1], [2, 2]],
+                    [[0, 0], [1, 0], [2, 0]], [[0, 1], [1, 1], [2, 1]], [[0, 2], [1, 2], [2, 2]],
+                    [[0, 0], [1, 1], [2, 2]], [[0, 2], [1, 1], [2, 0]]];
 let player = ["X", "O"];
 let playerTurn = 0;
 let gameCount = 0;
@@ -43,26 +46,16 @@ function drawBoard() {
     }
 }
 
-function checkRowCol() {
-    for (let i = 0; i < 3; ++i) {
-        if ((boardState[i][0] === boardState[i][1] && boardState[i][1] === boardState[i][2] && boardState[i][0] != "") ||
-            (boardState[0][i] === boardState[1][i] && boardState[1][i] === boardState[2][i] && boardState[0][i] != "")) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function checkDiag() {
-    if ((boardState[0][0] === boardState[1][1] && boardState[1][1] === boardState[2][2] && boardState[0][0] != "") ||
-        (boardState[0][2] === boardState[1][1] && boardState[1][1] === boardState[2][0] && boardState[2][0] != "")) {
-        return true;
-    }
-    return false;
-}
-
 function checkWinner() {
-    return checkRowCol() || checkDiag();
+    let result = false;
+    winningStates.forEach(state => {
+        if (boardState[state[0][0]][state[0][1]] === boardState[state[1][0]][state[1][1]] && 
+            boardState[state[1][0]][state[1][1]] === boardState[state[2][0]][state[2][1]] && 
+            boardState[state[0][0]][state[0][1]] != "") {
+                result = true;
+            }
+    })
+    return result;
 }
 
 function resetBoard() {
